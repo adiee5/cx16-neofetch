@@ -5,6 +5,8 @@ This program's intended to be used with [cx16shell](https://github.com/irmen/cx1
 
 ![neofetch screenshot](./.READMErsc/screenshot.png "Screenshot of the neofetch running in X16 emulator")
 
+Compiled binary can be downloaded from [the official CX16 forum post](https://cx16forum.com/forum/viewtopic.php?t=6769)
+
 ## Compiling
 First, you must have the [prog8 compiler](https://github.com/irmen/prog8) set up and ready for compiling. For more information go to the official page.
 
