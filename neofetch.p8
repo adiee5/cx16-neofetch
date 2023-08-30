@@ -90,7 +90,18 @@ main $4000 {
 		color(COLOR_HIGHLIGHT)
 		shell.print(iso:"GPU")
 		color(COLOR_NORMAL)
-		shell.print(iso:": VERA module") ;should we even bother detecting vera version, FX support etc?
+		shell.print(iso:": VERA module ")
+		ubyte tmp_ctrl = cx16.VERA_CTRL
+		cx16.VERA_CTRL = $7e
+		if cx16.VERA_DC_VER0 == $56 {
+			shell.print(iso:"v")
+			shell.print_uw(cx16.VERA_DC_VER1 as uword)
+			shell.print(iso:".")
+			shell.print_uw(cx16.VERA_DC_VER2 as uword)
+			shell.print(iso:".")
+			shell.print_uw(cx16.VERA_DC_VER3 as uword)
+		}
+		cx16.VERA_CTRL = tmp_ctrl
 		
 		color(7)
 		shell.print(iso:"\r           N N           ")
