@@ -25,4 +25,4 @@ Now you can run your [`SHELL.PRG`](https://github.com/irmen/cx16shell). Then you
 Note: you cannot run the program from the BASIC interpreter. This is probably going to result in your device crashing.
 
 ## Bonus – displaying neofetch when starting SHELL.PRG
-Since SHELL.PRG doesn't allow to autorun commands on boot, I've made a soft-fork of cx16shell, that contains the cx16-neofetch's code inside the SHELL.PRG, and executes it while shell's starting. You can get it [here](https://github.com/adiee5/cx16shell)!
+Since SHELL.PRG doesn't allow to autorun commands on boot, I've made a soft-fork of cx16shell, that contains the cx16-neofetch's code inside the SHELL.PRG, and executes it while shell's starting. You can get it [here](https://github.com/adiee5/cx16shell-with-neofetch)!
