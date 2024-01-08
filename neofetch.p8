@@ -56,7 +56,7 @@ main $4000 {
 		shell.print(iso:": Commander X16 ")
 		if (@($9FBE)==$31) and (@($9FBF) == $36) 
 			shell.print(iso:"Official Emulator") 
-		else shell.print(iso:" gen1 board")
+		else shell.print(iso:"gen1 board")
 		; TODO add functionality to distinguish gen2 and gen3 if it's going to be possible. 
 		; Additionally add support for distinguishing Box16
 		
@@ -82,7 +82,11 @@ main $4000 {
 		color(COLOR_HIGHLIGHT)
 		shell.print(iso:"CPU")
 		color(COLOR_NORMAL)
-		shell.print(iso:": WDC 65c02 (1) @ 8MHz")
+		shell.print(iso:": WDC ")
+		if cputype()
+			shell.print(iso:"65c816")
+		else shell.print(iso:"65c02")
+		shell.print(iso:" (1) @ 8MHz")
 		
 		color(5)
 		shell.print(iso:"\r     \'\'\"\"**N N**\"\"\'\'     ")
@@ -149,5 +153,19 @@ main $4000 {
 		ubyte[16] color_to_charcode = [$90,$05,$1c,$9f,$9c,$1e,$1f,$9e,$81,$95,$96,$97,$98,$99,$9a,$9b]
 		txtcol &= 15
 		cbm.CHROUT(color_to_charcode[txtcol])
-	}	
+	}
+	asmsub cputype() ->bool @A{
+		%asm {{
+			php
+			bit #0
+			.byte $e2, $ea ; should be interpreted as 2 NOPs by 65c02. 65c816 will set the Negative flag
+			bpl +
+			lda #1
+			plp
+			rts
++			lda #0
+			plp
+			rts
+		}}
+	}
 }
