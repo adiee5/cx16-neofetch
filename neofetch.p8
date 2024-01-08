@@ -74,7 +74,17 @@ main $4000 {
 		color(COLOR_HIGHLIGHT)
 		shell.print(iso:"Resolution")
 		color(COLOR_NORMAL)
-		shell.print(iso:": 640x240") ; default resolution when using SHELL.PRG
+		ubyte resx=0
+		ubyte resy=0
+		%asm {{  
+			jsr cx16.get_screen_mode
+			stx p8_main.p8_start.p8_resx
+			sty  p8_main.p8_start.p8_resy 
+			}}
+		shell.print(iso:": ")
+		shell.print_uw((resx as uword)*8)
+		shell.print(iso:"x")
+		shell.print_uw((resy as uword)*8)
 		
 		color(3)
 		shell.print(iso:"\r   \\@@@@@@\\   /@@@@@@/   ")
