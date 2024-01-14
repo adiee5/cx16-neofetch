@@ -78,8 +78,8 @@ main $4000 {
 		ubyte resy=0
 		%asm {{  
 			jsr cx16.get_screen_mode
-			stx p8_main.p8_start.p8_resx
-			sty  p8_main.p8_start.p8_resy 
+			stx p8v_resx
+			sty  p8v_resy 
 			}}
 		shell.print(iso:": ")
 		shell.print_uw((resx as uword)*8)
@@ -167,9 +167,9 @@ main $4000 {
 	asmsub cputype() ->bool @A{
 		%asm {{
 			php
-			bit #0
+			clv
 			.byte $e2, $ea ; should be interpreted as 2 NOPs by 65c02. 65c816 will set the Negative flag
-			bpl +
+			bvc +
 			lda #1
 			plp
 			rts

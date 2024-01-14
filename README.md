@@ -5,10 +5,10 @@ This program's intended to be used with [cx16shell](https://github.com/irmen/cx1
 
 ![neofetch screenshot](./.READMErsc/screenshot.png "Screenshot of the neofetch running in X16 emulator")
 
-Compiled binary can be downloaded from [the official CX16 forum post](https://cx16forum.com/forum/viewtopic.php?t=6769)
+Compiled binary can be downloaded from [the official CX16 forum post](https://cx16forum.com/forum/viewtopic.php?t=6769). Now it's also distributed with the [cx16shell](https://cx16forum.com/forum/viewtopic.php?t=6293) itself!
 
 ## Compiling
-First, you must have the [prog8 compiler](https://github.com/irmen/prog8) set up and ready for compiling. For more information go to the official page.
+First, you must have the [prog8 compiler](https://github.com/irmen/prog8) (in version 9.8 or bigger) set up and ready for compiling. For more information go to the official page.
 
 ### Linux
 In linux, you should create an [alias](https://en.wikipedia.org/wiki/Alias_(command)#Creating_aliases) called `p8compile` that runs `java -jar "/path/to/your/prog8compiler.jar"`, then you can just run `make` command to compile it and `make install` to place the binary into `SHELL-CMDS` folder.
@@ -24,5 +24,5 @@ Now you can run your [`SHELL.PRG`](https://github.com/irmen/cx16shell). Then you
 
 Note: you cannot run the program from the BASIC interpreter. This is probably going to result in your device crashing.
 
-## Bonus – displaying neofetch when starting SHELL.PRG
+## Bonus – displaying neofetch when starting SHELL.PRG *(DEPRECATED)*
 Since SHELL.PRG doesn't allow to autorun commands on boot, I've made a soft-fork of cx16shell, that contains the cx16-neofetch's code inside the SHELL.PRG, and executes it while shell's starting. You can get it [here](https://github.com/adiee5/cx16shell-with-neofetch)!
