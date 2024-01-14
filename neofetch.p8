@@ -10,7 +10,7 @@ main $4000 {
 	
 	sub start(){
 	
-		&ubyte[] shellcolors=get_text_colors()
+		uword shellcolors=shell.get_text_colors()
 		
 		color(4)
 		shell.print("\r  o                   o  ")
@@ -24,9 +24,9 @@ main $4000 {
 		if ver == -1
 			shell.print("unstable") 
 		else{
-			shell.chrout("R")
+			shell.chrout('R')
 			if ver < 0 ver *= -1
-			shell.print_ub(ver)
+			shell.print_ub(ver as ubyte)
 		}
 		
 		color(4)
@@ -66,7 +66,7 @@ main $4000 {
 			}}
 		shell.print(": ")
 		shell.print_uw((resx as uword)*8)
-		shell.chrout("x")
+		shell.chrout('x')
 		shell.print_uw((resy as uword)*8)
 		
 		color(3)
@@ -91,11 +91,11 @@ main $4000 {
 		ubyte tmp_ctrl = cx16.VERA_CTRL
 		cx16.VERA_CTRL = $7e
 		if cx16.VERA_DC_VER0 == $56 {
-			shell.chrout("v")
+			shell.chrout('v')
 			shell.print_ub(cx16.VERA_DC_VER1)
-			shell.chrout(".")
+			shell.chrout('.')
 			shell.print_ub(cx16.VERA_DC_VER2)
-			shell.chrout(".")
+			shell.chrout('.')
 			shell.print_ub(cx16.VERA_DC_VER3)
 		}
 		cx16.VERA_CTRL = tmp_ctrl
@@ -138,7 +138,7 @@ main $4000 {
 		color(2)
 		shell.print("\r    M@/           \\@M    ")
 		
-		shell.chrout("\r")
+		shell.chrout('\r')
 		sys.exit(0)
 	}
 	
