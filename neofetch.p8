@@ -38,6 +38,7 @@ main $4000 {
 		shell.print(iso:"OS")
 		color(COLOR_NORMAL)
 		shell.print(iso:": Commander X16 KERNAL ROM ")
+		cx16.rombank(0)
 		byte ver = @($ff80) as byte
 		if ver == -1
 			shell.print(iso:"unstable") 
