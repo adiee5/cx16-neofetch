@@ -6,13 +6,16 @@
         {
             "label": "Build",
             "type": "shell",
-            "windows": {
+            /*"windows": {
                 "command": "java",
                 "args": [
                     "-jar", "${env:PROG8C}",
                     "neofetch.p8",
                     "-target", "cx16"
                 ]
+            },*/
+            "windows":{
+                "command": ".\\compile.bat"
             },
             "linux":{
                 "command": "p8compile",
