@@ -24,5 +24,7 @@ Now you can run your [`SHELL.PRG`](https://github.com/irmen/cx16shell). Then you
 
 Note: you cannot run the program from the BASIC interpreter. This is probably going to result in your device crashing.
 
-## Bonus – displaying neofetch when starting SHELL.PRG *(DEPRECATED)*
-Since SHELL.PRG doesn't allow to autorun commands on boot, I've made a soft-fork of cx16shell, that contains the cx16-neofetch's code inside the SHELL.PRG, and executes it while shell's starting. You can get it [here](https://github.com/adiee5/cx16shell-with-neofetch)!
+Since `9cbb957`, Neofetch adjusts itself to the current screen resolution so that you can enjoy it in every resolution. You can also force neofetch to use a specific layout by providing a layout id as a argument, for example you can type `neofetch 1` to display the former default layout no matter what screen resolution you have. Layout ids correspond to numbers used by basic `SCREEN` and SHELL.PRG's `mode` commands. There are also additional layouts, which can be accesed by typing numbers larger than 11.
+
+## ~~Bonus – displaying neofetch when starting SHELL.PRG *(DEPRECATED)*~~
+~~Since SHELL.PRG doesn't allow to autorun commands on boot, I've made a soft-fork of cx16shell, that contains the cx16-neofetch's code inside the SHELL.PRG, and executes it while shell's starting. You can get it [here](https://github.com/adiee5/cx16shell-with-neofetch)!~~
