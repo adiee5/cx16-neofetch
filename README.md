@@ -1,5 +1,5 @@
 # cx16-neofetch
-A program for Commander X16, that shows your system information in a decorative manner.  Heavily inspired by [neofetch](https://github.com/dylanaraps/neofetch)
+A program for Commander X16, that shows your system information in a decorative manner. Heavily inspired by [neofetch](https://github.com/dylanaraps/neofetch)
 
 This program's intended to be used with [cx16shell](https://github.com/irmen/cx16shell)
 

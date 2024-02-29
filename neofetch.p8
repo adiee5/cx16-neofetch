@@ -168,12 +168,9 @@ main $4000 {
 	
 	asmsub color(ubyte txtcol @X) clobbers(A){
 		%asm{{
-		color_to_charcode	.byte  $90, $05, $1c, $9f, $9c, $1e, $1f, $9e, $81, $95, $96, $97, $98, $99, $9a, $9b
 			lda color_to_charcode,x
 			jmp cbm.CHROUT
-			;sec
-			;jmp p8b_shell.p8s_print_ubhex
-			
+		color_to_charcode	.byte  $90, $05, $1c, $9f, $9c, $1e, $1f, $9e, $81, $95, $96, $97, $98, $99, $9a, $9b
 		}}
 	}
 
