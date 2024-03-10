@@ -26,5 +26,5 @@ Note: you cannot run the program from the BASIC interpreter. This is probably go
 
 Since `9cbb957`, Neofetch adjusts itself to the current screen resolution so that you can enjoy it in every resolution. You can also force neofetch to use a specific layout by providing a layout ID as an argument, for example you can type `neofetch 1` to display the former default layout no matter what screen resolution you have. Layout IDs correspond to numbers used by basic `SCREEN` and SHELL.PRG's `mode` commands. There are also additional layouts, which can be accessed by typing numbers larger than 11.
 
-## ~~Bonus – displaying neofetch when starting SHELL.PRG *(DEPRECATED)*~~
-~~Since SHELL.PRG doesn't allow to autorun commands on boot, I've made a soft-fork of cx16shell, that contains the cx16-neofetch's code inside the SHELL.PRG, and executes it while shell's starting. You can get it [here](https://github.com/adiee5/cx16shell-with-neofetch)!~~
+## Bonus - How to make a neofetch run when starting shell
+Starting with Shell v1.3, users can set up the starting routine of cx16shell by editing `/SHELL-CMDS/config.sh` file. This file is a simple shell script, that contains commands you want to execute before shell gives you the ability to type commands. You just need to add command, that is `neofetch`. You can even select the neofetch layout just like you'd do in the command prompt. Before saving the file, make sure, that the file ends with an empty line. Now, when you start the shell, you are going to be greeted by the neofetch! :D
