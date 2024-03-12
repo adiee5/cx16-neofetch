@@ -162,6 +162,7 @@ main $4000 {
 		
 		logo.printall()
 		
+		color(shellcolors[0])
 		shell.chrout('\r')
 		sys.exit(0)
 	}
