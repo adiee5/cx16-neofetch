@@ -66,8 +66,11 @@ main $4000 {
 		if ver == -1
 			shell.print("unstable") 
 		else{
+			if ver < 0 {
+				ver *= -1
+				shell.print("pre-") 
+			}
 			shell.chrout('R')
-			if ver < 0 ver *= -1
 			shell.print_ub(ver as ubyte)
 		}
 		
