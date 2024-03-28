@@ -2,3 +2,4 @@
 *.asm
 *.vice-mon-list
 SHELL-CMDS
+SHELL-FILES

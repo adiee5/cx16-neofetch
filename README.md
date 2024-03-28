@@ -11,15 +11,15 @@ A compiled binary can be downloaded from [the official CX16 forum post](https://
 First, you must have the [prog8 compiler](https://github.com/irmen/prog8) (in version 9.8 or bigger) set up and ready for compiling. For more information, go to the official page.
 
 ### Linux
-In Linux, you should create an [alias](https://en.wikipedia.org/wiki/Alias_(command)#Creating_aliases) called `p8compile` that runs `java -jar "/path/to/your/prog8compiler.jar"`, then you can just run `make` command to compile it and `make install` to place the binary into `SHELL-CMDS` folder.
+In Linux, you should create an [alias](https://en.wikipedia.org/wiki/Alias_(command)#Creating_aliases) called `p8compile` that runs `java -jar "/path/to/your/prog8compiler.jar"`, then you can just run `make` command to compile it and `make install` to place the binary into `SHELL-FILES/commands` folder.
 
 ### Windows
-Before you'll run `compile.bat` script, you'll have to [create an Environment Variable](https://docs.oracle.com/en/database/oracle/machine-learning/oml4r/1.5.1/oread/creating-and-modifying-environment-variables-on-windows.html#GUID-DD6F9982-60D5-48F6-8270-A27EC53807D0) called `PROG8C` with its value being `"Drive:\path\to\your\prog8compiler.jar"`. If you don't want to do that, I guess you can just replace the `%PROG8C%` inside the `compile.bat` script with the path to your compiler. Then you can just run `compile.bat`. The outputted binary's going to be located in the `SHELL-CMDS` folder.
+Before you'll run `compile.bat` script, you'll have to [create an Environment Variable](https://docs.oracle.com/en/database/oracle/machine-learning/oml4r/1.5.1/oread/creating-and-modifying-environment-variables-on-windows.html#GUID-DD6F9982-60D5-48F6-8270-A27EC53807D0) called `PROG8C` with its value being `"Drive:\path\to\your\prog8compiler.jar"`. If you don't want to do that, I guess you can just replace the `%PROG8C%` inside the `compile.bat` script with the path to your compiler. Then you can just run `compile.bat`. The outputted binary's going to be located in the `SHELL-FILES/commands` folder.
 
 **In all of those cases, remember to also include the filename of the compiler at the end of the path** (if it wasn't obvious)**!**
 
 ## Usage
-In order to use the program, you'll need to create the `SHELL-CMDS` folder inside your CX16 SD card or Emulator's working directory. Then copy your binary to that folder. It's recommended to remove the suffix from your binary file's name (if it has it), so that you don't have to type it.
+In order to use the program, you'll need to create the `SHELL-FILES/commands` folder inside your CX16 SD card or Emulator's working directory. Then copy your binary to that folder. It's recommended to remove the suffix from your binary file's name (if it has it), so that you don't have to type it.
 Now you can run your [`SHELL.PRG`](https://github.com/irmen/cx16shell). Then you can simply execute the neofetch by typing `neofetch` in your shell – just like you'd do on any Linux system. 
 
 Note: you cannot run the program from the BASIC interpreter. This is probably going to result in your device crashing.
@@ -27,4 +27,4 @@ Note: you cannot run the program from the BASIC interpreter. This is probably go
 Since `9cbb957`, Neofetch adjusts itself to the current screen resolution so that you can enjoy it in every resolution. You can also force neofetch to use a specific layout by providing a layout ID as an argument, for example you can type `neofetch 1` to display the former default layout no matter what screen resolution you have. Layout IDs correspond to numbers used by basic `SCREEN` and SHELL.PRG's `mode` commands. There are also additional layouts, which can be accessed by typing numbers larger than 11.
 
 ## Bonus - How to make a neofetch run when starting shell
-Starting with Shell v1.3, users can set up the starting routine of cx16shell by editing `/SHELL-CMDS/config.sh` file. This file is a simple shell script, that contains commands you want to execute before shell gives you the ability to type commands. You just need to add command, that is `neofetch`. You can even select the neofetch layout just like you'd do in the command prompt. Before saving the file, make sure, that the file ends with an empty line. Now, when you start the shell, you are going to be greeted by the neofetch! :D
+Starting with Shell v1.3, users can set up the starting routine of cx16shell by editing `/SHELL-FILES/config.sh` file. This file is a simple shell script, that contains commands you want to execute before shell gives you the ability to type commands. You just need to add command, that is `neofetch`. You can even select the neofetch layout just like you'd do in the command prompt. Before saving the file, make sure, that the file ends with an empty line. Now, when you start the shell, you are going to be greeted by the neofetch! :D
