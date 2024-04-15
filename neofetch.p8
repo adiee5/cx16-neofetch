@@ -54,6 +54,7 @@ main $4000 {
 		}
 
 		uword shellcolors=shell.get_text_colors()
+		uword JDspeed=hertz_check()
 
 		logo.print()
 
@@ -112,7 +113,14 @@ main $4000 {
 		if cputype()
 			shell.print("65c816")
 		else shell.print("65c02")
-		shell.print(" (1) @ 8MHz")
+		shell.print(" (1) @ ")
+		;shell.print_uwhex(JDspeed,true)
+		;shell.chrout(' ')
+		if(JDspeed>=$2600)shell.chrout('>')
+		if(JDspeed>=$2000)shell.chrout('8')
+		else if(JDspeed>=$1000)shell.chrout('4')
+		else shell.chrout('2')
+		shell.print("MHz")
 		
 		logo.print()
 		
@@ -140,7 +148,7 @@ main $4000 {
 		shell.print(": ")
 		shell.print_uw((sys.progend()-737) / 1024) ; 735 bytes of free golden ram + 2 bank registers = 737
 		shell.print("KiB / ")
-		shell.print_uw((cbm.MEMTOP(0, true)-2) / 1024)
+		shell.print_uw((MEMTOP()-2) / 1024)
 		shell.print("KiB")
 		
 		logo.print()
@@ -190,6 +198,76 @@ main $4000 {
 		+	lda #0
 			plp
 			rts
+		}}
+	}
+
+	; function, that checks how fast is the cpu (bigger number = faster cpu)
+	; created bt JimmyDansbo. Og code here: https://gist.github.com/JimmyDansbo/bbbf8d9da8916d995af689248a266d9a
+	asmsub hertz_check() -> uword @R0{
+		%asm{{
+			stz	cx16.r0		; Ensure our cx16.r0 variable is zero
+			stz	cx16.r0+1
+			stz	P8ZP_SCRATCH_REG	; Ensure trigger variable is zero
+
+			; Save original interrupt vector address
+			lda	cx16.CINV
+			sta	P8ZP_SCRATCH_W1
+			lda	cx16.CINV+1
+			sta	P8ZP_SCRATCH_W1+1
+
+			; Install new interrupt handler
+			sei
+			lda	#<vera_tick
+			sta	cx16.CINV
+			lda	#>vera_tick
+			sta	cx16.CINV+1
+			cli
+			
+			; Wait for an interrupt to ensure that we start the timing at
+			; the beginning of an interrupt
+		firstwait
+			wai
+			lda	P8ZP_SCRATCH_REG
+			beq	firstwait
+			stz	P8ZP_SCRATCH_REG
+
+			; Now we do as many counts as we can until next interrupt
+		timing
+			inc	cx16.r0
+			bne	+
+			inc	cx16.r0+1
+		+	lda	P8ZP_SCRATCH_REG
+			beq	timing
+
+			; Uninstall interrupt handler
+			sei			; Disable interrupts
+			lda	P8ZP_SCRATCH_W1
+			sta	cx16.CINV
+			lda	P8ZP_SCRATCH_W1+1
+			sta	cx16.CINV+1
+			cli			; Enable interrupts
+
+			; High byte of the r0 have the following values on all systems
+			; that I have tested (Emulator, CX16 PR board, OtterX & Community Board)
+			; @ 2 MHz - $08
+			; @ 4 MHz - $11
+			; @ 8 MHz - $24
+
+			rts
+
+			; Ensure P8ZP_SCRATCH_REG is non-zero when irq happens
+		vera_tick
+			lda	cx16.VERA_ISR
+			and	#1		; Is this VSYNC?
+			beq	+		; if not, end
+			sta	P8ZP_SCRATCH_REG
+		+	jmp	(P8ZP_SCRATCH_W1)
+		}}
+	}
+	inline asmsub MEMTOP() -> uword @ XY{
+		%asm{{
+			sec
+			jsr cbm.MEMTOP
 		}}
 	}
 }
