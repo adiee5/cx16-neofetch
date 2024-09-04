@@ -210,17 +210,17 @@ main $4000 {
 			stz	P8ZP_SCRATCH_REG	; Ensure trigger variable is zero
 
 			; Save original interrupt vector address
-			lda	cx16.CINV
+			lda	cbm.CINV
 			sta	P8ZP_SCRATCH_W1
-			lda	cx16.CINV+1
+			lda	cbm.CINV+1
 			sta	P8ZP_SCRATCH_W1+1
 
 			; Install new interrupt handler
 			sei
 			lda	#<vera_tick
-			sta	cx16.CINV
+			sta	cbm.CINV
 			lda	#>vera_tick
-			sta	cx16.CINV+1
+			sta	cbm.CINV+1
 			cli
 			
 			; Wait for an interrupt to ensure that we start the timing at
@@ -242,9 +242,9 @@ main $4000 {
 			; Uninstall interrupt handler
 			sei			; Disable interrupts
 			lda	P8ZP_SCRATCH_W1
-			sta	cx16.CINV
+			sta	cbm.CINV
 			lda	P8ZP_SCRATCH_W1+1
-			sta	cx16.CINV+1
+			sta	cbm.CINV+1
 			cli			; Enable interrupts
 
 			; High byte of the r0 have the following values on all systems
