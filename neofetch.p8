@@ -8,7 +8,7 @@
 %encoding iso
 %address $4000
 
-main $4000 {
+main {
 	%option force_output
 	
 	sub start(){
