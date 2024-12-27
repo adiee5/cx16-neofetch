@@ -8,7 +8,7 @@ This program's intended to be used with [cx16shell](https://github.com/irmen/cx1
 A compiled binary can be downloaded from [the official CX16 forum post](https://cx16forum.com/forum/viewtopic.php?t=6769). Now it's also distributed with the [cx16shell](https://cx16forum.com/forum/viewtopic.php?t=6293) itself!
 
 ## Compiling
-First, you must have the [prog8 compiler](https://github.com/irmen/prog8) (in version 9.8 or bigger) set up and ready for compiling. For more information, go to the official page.
+First, you must have the [prog8 compiler](https://github.com/irmen/prog8) (in version 11.0 or bigger) set up and ready for compiling. For more information, go to the official page.
 
 ### Linux
 In Linux, you should create an [alias](https://en.wikipedia.org/wiki/Alias_(command)#Creating_aliases) called `p8compile` that runs `java -jar "/path/to/your/prog8compiler.jar"`, then you can just run `make` command to compile it and `make install` to place the binary into `SHELL-FILES/commands` folder.

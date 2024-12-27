@@ -3,7 +3,7 @@
 %zeropage dontuse
 %import shellroutines
 %import conv ;sadly, i really needed to import this this time 3-(
-%import string ;for some reason it asks me to import it, I've never had to 
+%import strings ;for some reason it asks me to import it, I've never had to 
                ;implicitly import this lib up to this point
 %encoding iso
 %address $4000
@@ -24,16 +24,16 @@ main {
 			sty p8v_resy 
 			}}
 		cx16.rambank(0)
-		if string.length(shellcolors)>0{
-			while string.isspace(shellcolors[0]){
+		if strings.length(shellcolors)>0{
+			while strings.isspace(shellcolors[0]){
 				shellcolors++
 			}
 			j=conv.str2ubyte(shellcolors)
 			if cx16.r15==0{
-				void shell.err_set("Command argument wasn't readable")
+				shell.err_set("Command argument wasn't readable")
 			}
 			else if j>=len(logo.list){
-				void shell.err_set("We don't have that many layout variants...")
+				shell.err_set("We don't have that many layout variants...")
 			}
 			else{
 				logo.id=j
@@ -183,6 +183,7 @@ main {
 			lda color_to_charcode,x
 			jmp cbm.CHROUT
 		color_to_charcode	.byte  $90, $05, $1c, $9f, $9c, $1e, $1f, $9e, $81, $95, $96, $97, $98, $99, $9a, $9b
+			; !notreached!
 		}}
 	}
 
@@ -391,14 +392,14 @@ logo{
 	}
 	sub print(){
 		cx16.r0L=current[i]
-		cx16.r0H=current[i+1]
+		cx16.r0H=current[i+listh[logo.id]]
 		shell.print(cx16.r0)
-		;shell.print_ub(string.length(cx16.r0))
+		;shell.print_ub(strings.length(cx16.r0))
 		;shell.chrout('\r')
-		i+=2
+		i+=1
 	}
 	sub printall(){
-		while i<= (listh[logo.id]-1)*2{
+		while i<= (listh[logo.id]-1){
 			print()
 		}
 	}
@@ -419,7 +420,7 @@ logo{
 			@(square[n]+23)=0
 		}
 		for n in 0 to len(square)-1{
-			void string.copy(square[n]+4,square[n]+2)
+			void strings.copy(square[n]+4,square[n]+2)
 		}
 	}
 	
