@@ -116,10 +116,7 @@ main {
 		shell.print(" (1) @ ")
 		;shell.print_uwhex(JDspeed,true)
 		;shell.chrout(' ')
-		if(JDspeed>=$2600)shell.chrout('>')
-		if(JDspeed>=$2000)shell.chrout('8')
-		else if(JDspeed>=$1000)shell.chrout('4')
-		else shell.chrout('2')
+		print_hertz(msb(JDspeed))
 		shell.print("MHz")
 		
 		logo.print()
@@ -248,11 +245,7 @@ main {
 			sta	cbm.CINV+1
 			cli			; Enable interrupts
 
-			; High byte of the r0 have the following values on all systems
-			; that I have tested (Emulator, CX16 PR board, OtterX & Community Board)
-			; @ 2 MHz - $08
-			; @ 4 MHz - $11
-			; @ 8 MHz - $24
+			; use print_hertz() function to print the hertz value
 
 			rts
 
@@ -263,6 +256,120 @@ main {
 			beq	+		; if not, end
 			sta	P8ZP_SCRATCH_REG
 		+	jmp	(P8ZP_SCRATCH_W1)
+		}}
+	}
+	asmsub print_hertz(ubyte j @A) clobbers(A){
+		%asm{{
+			cmp	#$59	; If highbyte of counter >= $59 then 20 MHz or more
+			bcc +
+			jmp	_do20
+		+	cmp	#$55	; If highbyte of counter >= $55 then 19 MHz 
+			bcc +
+			jmp	_do19
+		+	cmp	#$50	; If highbyte of counter >= $50 then 18 MHz
+			bcc +
+			jmp	_do18
+		+	cmp	#$4B	; If highbyte of counter >= $4B then 17 MHz
+			bcc +
+			jmp	_do17
+		+	cmp	#$47	; If highbyte of counter >= $47 then 16 MHz
+			bcc +
+			jmp	_do16
+		+	cmp	#$42	; If highbyte of counter >= $42 then 15 MHz
+			bcc +
+			jmp	_do15
+		+	cmp	#$3D	; If highbyte of counter >= $3D then 14 MHz
+			bcc +
+			jmp	_do14
+		+	cmp	#$39	; If highbyte of counter >= $39 then 13 MHz
+			bcc +
+			jmp	_do13
+		+	cmp	#$34	; If highbyte of counter >= $34 then 12 MHz
+			bcc +
+			jmp	_do12
+		+	cmp	#$2F	; If highbyte of counter >= $2F then 11 MHz
+			bcc +
+			jmp	_do11
+		+	cmp	#$2B	; If highbyte of counter >= $2B then 10 MHz
+			bcc +
+			jmp	_do10
+		+	cmp	#$26	; If highbyte of counter >= $26 then 9 MHz
+			bcc	+
+			lda	#$39
+			jmp	_endstr
+		+	cmp	#$21	; If highbyte of counter >= $21 then 8 MHz
+			bcc	+
+			lda	#$38
+			jmp	_endstr
+		+	cmp	#$1D	; If highbyte of counter >= $1D then 7 MHz
+			bcc	+
+			lda	#$37
+			jmp	_endstr
+		+	cmp	#$18	; If highbyte of counter >= $18 then 6 MHz
+			bcc	+
+			lda	#$36
+			jmp	_endstr
+		+	cmp	#$13	; If highbyte of counter >= $13 then 5 MHz
+			bcc	+
+			lda	#$35
+			bra	_endstr
+		+	cmp	#$0F	; If highbyte of counter >= $0F then 4 MHz
+			bcc	+
+			lda	#$34
+			bra	_endstr
+		+	cmp	#$0A	; If highbyte of counter >= $0A then 3 MHz
+			bcc	+
+			lda	#$33
+			bra	_endstr
+		+	cmp	#$05	; If highbyte of counter >= $05 then 2 MHz
+			bcc	+
+			lda	#$32
+			bra	_endstr
+		+	lda	#$31	; Otherwise system is most likely running at 1 MHz
+			bra	_endstr
+		_do20	lda	#$3e
+			jsr	cbm.CHROUT
+		_do19	lda	#$31
+			jsr	cbm.CHROUT
+			lda	#$39
+			bra	_endstr
+		_do18	lda	#$31
+			jsr	cbm.CHROUT
+			lda	#$38
+			bra	_endstr
+		_do17	lda	#$31
+			jsr	cbm.CHROUT
+			lda	#$37
+			bra	_endstr
+		_do16	lda	#$31
+			jsr	cbm.CHROUT
+			lda	#$36
+			bra	_endstr
+		_do15	lda	#$31
+			jsr	cbm.CHROUT
+			lda	#$35
+			bra	_endstr
+		_do14	lda	#$31
+			jsr	cbm.CHROUT
+			lda	#$34
+			bra	_endstr
+		_do13	lda	#$31
+			jsr	cbm.CHROUT
+			lda	#$33
+			bra	_endstr
+		_do12	lda	#$31
+			jsr	cbm.CHROUT
+			lda	#$32
+			bra	_endstr
+		_do11	lda	#$31
+			jsr	cbm.CHROUT
+			bra	_endstr
+		_do10	lda	#$31
+			jsr	cbm.CHROUT
+			lda	#$30
+
+		_endstr
+			jmp	cbm.CHROUT	; Write the calculated MHz number
 		}}
 	}
 	inline asmsub MEMTOP() -> uword @ XY{
